@@ -15,7 +15,7 @@ const HomeLayout = () => {
                 <div className="flex justify-center mt-2">
                     <CurrentDate />
                 </div>
-                <div className="w-10/12  mx-auto mt-7">
+                <div className="w-11/12  mx-auto mt-7">
                     <LatestNews />
                 </div>
             </header>

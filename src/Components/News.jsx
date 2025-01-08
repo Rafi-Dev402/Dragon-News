@@ -4,7 +4,7 @@ import Card from './Card';
 
 const News = () => {
     const {data:news} = useLoaderData();
-    console.log(news[0])
+   
     return (
         <div>
              <h3 className='text-[#403F3F] text-xl font-semibold mb-3 '>Dragon News Home</h3>

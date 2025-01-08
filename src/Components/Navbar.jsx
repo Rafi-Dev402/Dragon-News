@@ -1,4 +1,5 @@
 import { FaUser } from "react-icons/fa6";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
     return (
@@ -28,10 +29,12 @@ const Navbar = () => {
                             <li><a>Career</a></li>
                         </ul>
                     </div>
-                    
+
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
+                        
+                        {/* <li><NavLink className="text-[#706F6F] text-base font-light">Home</NavLink></li> */}
                         <li><a className="text-[#706F6F] text-base font-light">Home</a></li>
                         <li><a className="text-[#706F6F] text-base font-light">About</a></li>
                         <li><a className="text-[#706F6F] text-base font-light">Career</a></li>
@@ -41,7 +44,10 @@ const Navbar = () => {
                     <div>
                         <button className="btn btn-circle text-center border mr-3"><FaUser className="text-xl md:text-xl lg:text-2xl" /></button>
                     </div>
-                    <a className="bg-[#403F3F] px-5 py-2 text-white text-xl btn-neutral cursor-pointer font-semibold">Log in</a>
+                    <button className="bg-[#403F3F] px-5 py-2 text-white text-xl btn-neutral cursor-pointer font-semibold btn">
+                        <Link to={"/auth/login"} >Log in</Link>
+                    </button>
+                    
                 </div>
             </div>
         </div>

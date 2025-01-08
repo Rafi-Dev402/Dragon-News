@@ -13,7 +13,7 @@ import bgimage from "../assets/bg.png"
 const RightAside = () => {
     return (
         <div>
-            <h3 className='text-[#403F3F] text-xl font-semibold mb-5 '>Log in With</h3>
+            <h3 className='text-[#403F3F] text-xl font-semibold mb-5'>Log in With</h3>
 
             <div className='flex flex-col mb-7'>
                 <button className="btn btn-outline px-10 text-blue-500 mb-4 "><FcGoogle className='text-xl' />Log in with Google</button>

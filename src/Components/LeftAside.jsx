@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 
 const LeftAside = () => {
     const [categories, setCategorys] = useState([]);
@@ -21,7 +21,7 @@ const LeftAside = () => {
                     [...categories].map(category => 
                         <NavLink  
                         to={`/category/${category.category_id}`} key={category.category_id} 
-                        className={({isActive})=> `text-[#9F9F9F] text-center text-xl btn  font-medium ${(isActive)? "bg-[#E7E7E7]":"bg-base-100"}`}>{category.category_name}</NavLink>
+                        className={`text-[#9F9F9F] text-center text-xl btn  font-medium `}>{category.category_name}</NavLink>
                     )
                 }
                

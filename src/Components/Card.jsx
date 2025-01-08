@@ -43,7 +43,7 @@ const Card = ({ news }) => {
             <div className='p-3'>
                 <h3 className='text-[#403F3F] text-xl font-bold mb-5'>{title}</h3>
                 <div className='mb-8'>
-                    <img className='w-[800px] h-[268px] object-cover overflow-hidden mx-auto' src={thumbnail_url} alt="" />
+                    <img className='w-[800px] h-[280px] object-cover overflow-hidden mx-auto' src={thumbnail_url} alt="" />
                 </div>
                 <p className='text-[#706F6F] text-base font-semibold mb-2'>{details}</p>
                 <a className='text-orange-500 text-base font-semibold' href="">Read More</a>
