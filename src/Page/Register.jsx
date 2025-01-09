@@ -1,7 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { AuthContex } from '../Provider/AuthProvider';
 
 const Register = () => {
+    const home = useNavigate()
+    const {registerUser,user} = useContext(AuthContex);
+    console.log(user)
+    const handleRegister =(event)=>{
+        event.preventDefault();
+       
+
+        const form = new FormData(event.target)
+        const name = form.get('name')
+        const photo = form.get('photoUrl')
+        const email = form.get('email')
+        const password = form.get('password')
+        console.log(name,photo,email,password)
+        
+        registerUser(email,password)
+        .then((result)=>{
+            console.log(result.user)
+            event.target.reset();
+            home('/category/:01');
+        })
+        .catch((error)=>{
+            console.log("Error",error.message)
+        });
+        
+    }
     return (
         <div className='flex justify-center items-center min-h-[820px]'>
             <div className="card bg-base-100 w-full max-w-xl p-0 md:p-0 lg:p-10 shrink-0 rounded-none">
@@ -9,7 +35,7 @@ const Register = () => {
                 <div className='px-5'>
                     <hr className='border text-[#F3F3F3]' />
                 </div>
-                <form className="card-body">
+                <form onSubmit={handleRegister} className="card-body">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text text-[#403F3F] text-xl font-semibold">Name</span>

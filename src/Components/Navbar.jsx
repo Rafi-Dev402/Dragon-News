@@ -1,7 +1,17 @@
+import { useContext } from "react";
 import { FaUser } from "react-icons/fa6";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContex } from "../Provider/AuthProvider";
 
 const Navbar = () => {
+    const login = useNavigate();
+    const { user,  userLogout } = useContext(AuthContex)
+    //For logout button
+    const handleLogout = ()=>{
+        userLogout()
+        console.log("signe out")
+        login('/auth/login')
+    }
     return (
         <div>
             <div className="navbar ">
@@ -29,11 +39,11 @@ const Navbar = () => {
                             <li><a>Career</a></li>
                         </ul>
                     </div>
-
+                    <a className="btn btn-ghost text-xl">{user?.email}</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        
+
                         {/* <li><NavLink className="text-[#706F6F] text-base font-light">Home</NavLink></li> */}
                         <li><a className="text-[#706F6F] text-base font-light">Home</a></li>
                         <li><a className="text-[#706F6F] text-base font-light">About</a></li>
@@ -44,10 +54,19 @@ const Navbar = () => {
                     <div>
                         <button className="btn btn-circle text-center border mr-3"><FaUser className="text-xl md:text-xl lg:text-2xl" /></button>
                     </div>
-                    <button className="bg-[#403F3F] px-5 py-2 text-white text-xl btn-neutral cursor-pointer font-semibold btn">
-                        <Link to={"/auth/login"} >Log in</Link>
-                    </button>
-                    
+                    {
+                        (user) ?
+                         <button onClick={handleLogout} className="bg-[#403F3F] px-5 py-2 text-white text-xl btn-neutral cursor-pointer font-semibold btn">
+                            Log Out
+                        </button> 
+                        : 
+                        <button className="bg-[#403F3F] px-5 py-2 text-white text-xl btn-neutral cursor-pointer font-semibold btn">
+                            <Link to={"/auth/login"} >Log in</Link>
+                        </button>
+                    }
+
+
+
                 </div>
             </div>
         </div>

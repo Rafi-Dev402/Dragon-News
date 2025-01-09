@@ -1,7 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContex } from '../Provider/AuthProvider';
 
 const Login = () => {
+    const {userLogin} = useContext(AuthContex);
+    const home = useNavigate()
+    const handleLogin = (e) =>{
+        e.preventDefault();
+        const loginForm = new FormData(e.target);
+        const email = loginForm.get('email');
+        const password = loginForm.get('password');
+
+        userLogin(email,password)
+        .then((result)=>{
+            console.log(result.user)
+            home('/category/:01')
+        })
+        .catch((error)=>{
+            console.log(error.message)
+        })
+        e.target.reset();
+    }
     return (
         <div className='flex justify-center items-center min-h-[820px]'>
             <div className="card bg-base-100 w-full max-w-xl p-0 md:p-0 lg:p-10 shrink-0 rounded-none">
@@ -9,7 +28,7 @@ const Login = () => {
                 <div className='px-5'>
                     <hr className='border text-[#F3F3F3]' />
                 </div>
-                <form className="card-body">
+                <form onSubmit={handleLogin} className="card-body">
                     <div className="form-control">
                         <label className="label">
                             <span className="label-text text-[#403F3F] text-xl font-semibold">Email</span>
