@@ -1,21 +1,28 @@
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase-Config";
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut} from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile} from "firebase/auth";
 import { Navigate } from "react-router-dom";
 
 export const AuthContex = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const [user,setUser] = useState(null)
+    const [user,setUser] = useState(null);
+    const [loding,setLoding] = useState(true);
 
     //For Register authenticatin
     const registerUser = (email,password)=>{
+        setLoding(true)
         return createUserWithEmailAndPassword(auth,email,password);
+    }
+    //For update Profile
+    const updateUserData = (updateData) =>{
+        return updateProfile(auth.currentUser, (updateData))
     }
     //For Login user----------->
     const userLogin = (email,password)=>{
+       setLoding(true)
         return signInWithEmailAndPassword(auth,email,password)
     }
 
@@ -23,12 +30,13 @@ const AuthProvider = ({children}) => {
     useEffect(()=>{
         const unsubsCribe = onAuthStateChanged(auth, (currentUser)=>{
             if(currentUser){
-                // console.log("login user",currentUser)
+                
                 setUser(currentUser)
-                
-                
+                setLoding(false)
             }else{
-                console.log("Usser is logged out")
+                setUser(null)
+                setLoding(false)
+                // console.log("Usser is logged out")
             }
         })
 
@@ -41,9 +49,10 @@ const AuthProvider = ({children}) => {
 
     // For user Logout----------------->
    const userLogout = ()=>{
+    
     signOut(auth).then(()=>{
+        setLoding(false)
         alert("SignOut Successfill");
-        setUser(null)
     })
     .catch((error)=>{
         alert("something wents wrong")
@@ -54,7 +63,10 @@ const AuthProvider = ({children}) => {
 
     const profile = {
         user,
+        loding,
+        setLoding,
         registerUser,
+        updateUserData,
         userLogin,
         userLogout
         

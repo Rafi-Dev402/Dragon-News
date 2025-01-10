@@ -1,25 +1,35 @@
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../Provider/AuthProvider';
 
 const Login = () => {
-    const {userLogin} = useContext(AuthContex);
-    const home = useNavigate()
-    const handleLogin = (e) =>{
+    const { userLogin } = useContext(AuthContex);
+    const [errorMessage, setErrorMessage] = useState("")
+
+
+    const detailsNavigate = useNavigate()
+    const logLocation = useLocation()
+    // console.log(logLocations.state)
+
+    const handleLogin = (e) => {
         e.preventDefault();
         const loginForm = new FormData(e.target);
         const email = loginForm.get('email');
         const password = loginForm.get('password');
 
-        userLogin(email,password)
-        .then((result)=>{
-            console.log(result.user)
-            home('/category/:01')
-        })
-        .catch((error)=>{
-            console.log(error.message)
-        })
-        e.target.reset();
+
+        // Reset stats
+        setErrorMessage("")
+
+        userLogin(email, password)
+            .then((result) => {
+                detailsNavigate((logLocation?.state ? logLocation.state : '/'))
+                e.target.reset();
+            })
+            .catch((error) => {
+                setErrorMessage(error.message)
+            })
+        
     }
     return (
         <div className='flex justify-center items-center min-h-[820px]'>
@@ -44,6 +54,11 @@ const Login = () => {
                             <a href="#" className="label-text-alt link link-hover text-base">Forgot password?</a>
                         </label>
                     </div>
+                    <label className="label">
+                        {
+                            (errorMessage) && <p className='text-red-500 font-medium text-lg'>{errorMessage}</p>
+                        }
+                    </label>
                     <div className="form-control mt-6">
                         <button className="btn text-white text-lg font-semibold hover:text-black bg-[#403F3F] rounded-sm">Login</button>
                     </div>

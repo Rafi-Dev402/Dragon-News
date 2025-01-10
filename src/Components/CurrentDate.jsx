@@ -21,7 +21,7 @@ const CurrentDate = () => {
 
     return (
         <div>
-            <div className='flex items-center'>
+            <div className='flex items-center justify-center'>
                 <span className='  md:text-lg lg:text-xl font-medium mr-1  '>{weekday},</span>
                 <span className='  md:text-lg lg:text-xl font-medium text-slate-600 '>{currentDate}</span>
             </div>

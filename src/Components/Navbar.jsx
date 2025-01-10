@@ -2,15 +2,17 @@ import { useContext } from "react";
 import { FaUser } from "react-icons/fa6";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContex } from "../Provider/AuthProvider";
+import imgUser from "../assets/user.png"
 
 const Navbar = () => {
     const login = useNavigate();
     const { user,  userLogout } = useContext(AuthContex)
+    // console.log(user.photoURL)
     //For logout button
     const handleLogout = ()=>{
         userLogout()
-        console.log("signe out")
-        login('/auth/login')
+        // console.log("signe out")
+        
     }
     return (
         <div>
@@ -34,25 +36,28 @@ const Navbar = () => {
                         <ul
                             tabIndex={0}
                             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li><a>Home</a></li>
+                            <li><NavLink to={'/'} className="text-[#706F6F] text-base font-light">Home</NavLink></li>
                             <li><a>About</a></li>
                             <li><a>Career</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">{user?.email}</a>
+                    <a className="btn btn-ghost text-xl  hidden md:hidden lg:block ">Hi! {user?.displayName}</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
 
-                        {/* <li><NavLink className="text-[#706F6F] text-base font-light">Home</NavLink></li> */}
-                        <li><a className="text-[#706F6F] text-base font-light">Home</a></li>
+                        <li><NavLink to={'/'} className="text-[#706F6F] text-base font-light">Home</NavLink></li>
+                        {/* <li><a className="text-[#706F6F] text-base font-light">Home</a></li> */}
                         <li><a className="text-[#706F6F] text-base font-light">About</a></li>
                         <li><a className="text-[#706F6F] text-base font-light">Career</a></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
                     <div>
-                        <button className="btn btn-circle text-center border mr-3"><FaUser className="text-xl md:text-xl lg:text-2xl" /></button>
+                        { 
+                            (user?.photoURL) ? <img className="w-12 h-12 rounded-full mr-3" src={user?.photoURL} alt="" /> : <img src={imgUser} className=" rounded-full text-center border mr-3"></img>
+                        }
+                        {/* <button className="btn btn-circle text-center border mr-3"><FaUser className="text-xl md:text-xl lg:text-2xl" /></button> */}
                     </div>
                     {
                         (user) ?

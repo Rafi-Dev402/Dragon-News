@@ -22,9 +22,9 @@ const RightAside = () => {
 
             <h3 className='text-[#403F3F] text-xl font-semibold mb-5 '>Find Us On</h3>
             <div className='border rounded-md mb-5'>
-                <a href="https://www.facebook.com/" target='_blank' className='px-3 py-3 flex items-center gap-2 border-b text-lg font-medium'><FaFacebook />Facebook</a>
-                <a href="https://x.com/?lang=en" target='_blank' className='px-3 py-3 flex items-center gap-2 border-b text-lg font-medium'><FaTwitter />Twitter</a>
-                <a href="https://www.instagram.com/" target='_blank' className='px-3 py-3 flex items-center gap-2  text-lg font-medium'><RiInstagramFill />Instagram</a>
+                <a href="https://www.facebook.com/" target='_blank' className='px-5 py-3 flex items-center gap-2 border-b text-lg font-medium'><FaFacebook />Facebook</a>
+                <a href="https://x.com/?lang=en" target='_blank' className='px-5 py-3 flex items-center gap-2 border-b text-lg font-medium'><FaTwitter />Twitter</a>
+                <a href="https://www.instagram.com/" target='_blank' className='px-5 py-3 flex items-center gap-2  text-lg font-medium'><RiInstagramFill />Instagram</a>
             </div>
             {/* className='bg-[#F3F3F3]' */}
             <div className='bg-[#F3F3F3] mb-5' >

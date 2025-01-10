@@ -1,32 +1,58 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { AuthContex } from '../Provider/AuthProvider';
+import { updateProfile } from 'firebase/auth';
+import { auth } from '../Firebase/firebase-Config';
 
 const Register = () => {
     const home = useNavigate()
-    const {registerUser,user} = useContext(AuthContex);
-    console.log(user)
-    const handleRegister =(event)=>{
-        event.preventDefault();
-       
+    const { registerUser, user, updateUserData } = useContext(AuthContex);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [success, setSuccess] = useState(false);
 
+    
+
+
+    const handleRegister = (event) => {
+        event.preventDefault();
         const form = new FormData(event.target)
         const name = form.get('name')
         const photo = form.get('photoUrl')
         const email = form.get('email')
         const password = form.get('password')
-        console.log(name,photo,email,password)
-        
-        registerUser(email,password)
-        .then((result)=>{
-            console.log(result.user)
-            event.target.reset();
-            home('/category/:01');
-        })
-        .catch((error)=>{
-            console.log("Error",error.message)
-        });
-        
+
+        const profile = {
+            displayName: name,
+            photoURL: photo
+        }
+        //From validation
+        if (password.length < 6) {
+            setErrorMessage("Password Must be 6 Charecter or Long")
+            return;
+        }
+
+
+
+        //Reset Stats
+        setErrorMessage("")
+
+        registerUser(email, password)
+            .then((result) => {
+
+                updateUserData(profile)
+                    .then(() => {
+                        setSuccess(true)
+                        home('/category/:01');
+                        event.target.reset();
+                    })
+                    .catch((error)=>{
+                        alert("An error occurred Please try Again")
+                    })
+            })
+            .catch((error) => {
+                console.log("Error", error.message);
+                setErrorMessage(error.message)
+            });
     }
     return (
         <div className='flex justify-center items-center min-h-[820px]'>
@@ -66,6 +92,17 @@ const Register = () => {
                             <span className="label-text text-base font-normal text-[#706F6F]">Accept Term & Conditions</span>
                         </label>
                     </div>
+                    {/* Error Message */}
+                    <label className="label flex justify-start gap-2 cursor-pointer">
+                        {/* error Message */}
+                        {
+                            (errorMessage) && <p className='text-red-500 font-medium text-lg'>{errorMessage}</p>
+                        }
+                        {/* Success Message */}
+                        {
+                            (success) && <p className='text-green-500 font-medium text-lg'>Login Successfully Done</p>
+                        }
+                    </label>
                     <div className="form-control mt-6">
                         <button className="btn text-white hover:text-black text-lg font-semibold bg-[#403F3F] rounded-sm">Register</button>
                     </div>

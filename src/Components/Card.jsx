@@ -4,8 +4,10 @@ import { CiBookmark } from "react-icons/ci";
 import { IoMdShare } from "react-icons/io";
 import { Rating } from '@mui/material';
 import { FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Card = ({ news }) => {
+    // console.log(news)
     const {
         title,
         author,
@@ -15,10 +17,11 @@ const Card = ({ news }) => {
         rating,
         total_view,
         details,
+        _id
     } = news;
-    // console.log(news)
+    // console.log(_id)
     return (
-        <div className='mb-3 border'>
+        <div className='mb-5 border'>
             {/* Author div */}
             <div className='bg-[#F3F3F3] flex justify-between items-center p-3 mb-4'>
                 {/* Img div */}
@@ -46,7 +49,7 @@ const Card = ({ news }) => {
                     <img className='w-[800px] h-[280px] object-cover overflow-hidden mx-auto' src={thumbnail_url} alt="" />
                 </div>
                 <p className='text-[#706F6F] text-base font-semibold mb-2'>{details}</p>
-                <a className='text-orange-500 text-base font-semibold' href="">Read More</a>
+                <Link to={`/details/${_id}`} className='text-orange-500 text-base font-semibold hover:text-blue-400' href="">Read More</Link>
                 <hr className='mt-4 mb-4 border' />
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-2'>
